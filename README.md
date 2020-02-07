@@ -1,4 +1,4 @@
-David's build of dwm
+David's dwm
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
@@ -7,6 +7,7 @@ Requirements
 ------------
 In order to build dwm you need the Xlib header files.
 
+P : I got  ``` sudo pacman -S make ```
 
 Installation
 ------------
@@ -35,6 +36,9 @@ Patches applied
 
 Running dwm
 -----------
+P: By using Manjaro Xfce ,there is a light display manager , so I have to add a `.desktop` to make the dwm show in starting login option
+  [See Add .desktop](https://forum.manjaro.org/t/dwm-not-showing-in-lightdm-log-in-screen/98220)
+
 Add the following line to your .xinitrc to start dwm using startx:
 
     exec dwm
