@@ -59,4 +59,4 @@ like this in your .xinitrc:
     done &
     exec dwm
 
-
+**P: There is a Scripts for dwm autostart from git** <++>
