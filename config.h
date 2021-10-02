@@ -11,10 +11,10 @@ static const unsigned int gappoh    = 10;       /* horiz outer gap between windo
 static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "Sauce Code Pro Nerd Font Complete:size=16" };
-static const char dmenufont[]       = "Sauce Code Pro Nerd Font Complete:size=16";
+static const char *fonts[]          = { "SauceCodePro Nerd Font Mono:size=13" };
+static const char dmenufont[]       = "Sauce Code Pro Nerd Font Mono:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -76,22 +76,22 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *roficmd[] = { "rofi -show drun -theme config.rasi", NULL };
-static const char *browsercmd[]  = { "chromium", NULL };
-static const char *trayercmd[]  = { "/home/p1k0/scripts/tr-toggle.sh", NULL };
+static const char *browsercmd[]  = { "firefox", NULL };
+static const char *trayercmd[]  = { "/home/piko/scripts/tr-toggle.sh", NULL };
 
-static const char *upvol[]   = { "/home/p1k0/scripts/vol-up.sh",  NULL };
-static const char *downvol[] = { "/home/p1k0/scripts/vol-down.sh",  NULL };
-static const char *mutevol[] = { "/home/p1k0/scripts/vol-toggle.sh",  NULL };
+static const char *upvol[]   = { "/home/piko/scripts/vol-up.sh",  NULL };
+static const char *downvol[] = { "/home/piko/scripts/vol-down.sh",  NULL };
+static const char *mutevol[] = { "/home/piko/scripts/vol-toggle.sh",  NULL };
 
-static const char *wpcmd[]  = { "/home/p1k0/scripts/wp-change.sh", NULL };
-static const char *sktogglecmd[]  = { "/home/p1k0/scripts/sck-tog.sh", NULL };
+static const char *wpcmd[]  = { "/home/piko/scripts/wp-change.sh", NULL };
+static const char *sktogglecmd[]  = { "/home/piko/scripts/sck-tog.sh", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x24", NULL };
 
-static const char *setcolemakcmd[]  = { "/home/p1k0/scripts/setxmodmap-colemak.sh", NULL };
-static const char *setqwertycmd[]  = { "/home/p1k0/scripts/setxmodmap-qwerty.sh", NULL };
+static const char *setcolemakcmd[]  = { "/home/piko/scripts/setxmodmap-colemak.sh", NULL };
+static const char *setqwertycmd[]  = { "/home/piko/scripts/setxmodmap-qwerty.sh", NULL };
 
-static const char *suspendcmd[]  = { "/home/p1k0/scripts/suspend.sh", NULL };
+static const char *suspendcmd[]  = { "/home/piko/scripts/suspend.sh", NULL };
 
 static const char *neteasemusiccmd[] = {"netease-cloud-music",NULL };
 
@@ -114,14 +114,14 @@ static Key keys[] = {
 	{ MODKEY,              XK_backslash,            spawn,          {.v = mutevol } },
 	{ MODKEY,              XK_bracketright,         spawn,          {.v = upvol   } },
 	{ MODKEY,              XK_b,                    spawn,          {.v = wpcmd } },
-	{ MODKEY|ShiftMask,    XK_k,                    rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,    XK_i,                    rotatestack,    {.i = -1 } },
-	{ MODKEY,              XK_k,                    focusstack,     {.i = +1 } },
-	{ MODKEY,              XK_i,                    focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,    XK_h,                    incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,    XK_j,                    rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,    XK_k,                    rotatestack,    {.i = -1 } },
+	{ MODKEY,              XK_j,                    focusstack,     {.i = +1 } },
+	{ MODKEY,              XK_k,                    focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,    XK_n,                    incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,    XK_v,                    incnmaster,     {.i = -1 } },
-	{ MODKEY,              XK_n,                    setmfact,       {.f = -0.05} },
-	{ MODKEY,              XK_m,                    setmfact,       {.f = +0.05} },
+	{ MODKEY,              XK_h,                    setmfact,       {.f = -0.05} },
+	{ MODKEY,              XK_l,                    setmfact,       {.f = +0.05} },
 	{ MODKEY,              XK_e,                    hidewin,        {0} },
 	{ MODKEY|ShiftMask,    XK_e,                    restorewin,     {0} },
 	{ MODKEY|ShiftMask,    XK_Return,               zoom,           {0} },
