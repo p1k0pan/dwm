@@ -36,8 +36,8 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
-
+/* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
+static const char *tags[] ={ "", "", "", "", "", "", "", "", "" };
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -52,13 +52,17 @@ static const Rule rules[] = {
 static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static int attachbelow = 1;    /* 1 means attach after the currently active window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "Tile",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[T]",      tile },    /* first entry is default */
+	{ "><",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
+
+/* static const char* ncmodes[] = { "🡶", "🡴" }; */
+/* static unsigned int ncmode = 1; */
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -77,21 +81,21 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *roficmd[] = { "rofi -show drun -theme config.rasi", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
-static const char *trayercmd[]  = { "/home/piko/scripts/tr-toggle.sh", NULL };
+static const char *trayercmd[]  = { "./scripts/tr-toggle.sh", NULL };
 
-static const char *upvol[]   = { "/home/piko/scripts/vol-up.sh",  NULL };
-static const char *downvol[] = { "/home/piko/scripts/vol-down.sh",  NULL };
-static const char *mutevol[] = { "/home/piko/scripts/vol-toggle.sh",  NULL };
+static const char *upvol[]   = { "./scripts/vol-up.sh",  NULL };
+static const char *downvol[] = { "./scripts/vol-down.sh",  NULL };
+static const char *mutevol[] = { "./scripts/vol-toggle.sh",  NULL };
 
-static const char *wpcmd[]  = { "/home/piko/scripts/wp-change.sh", NULL };
-static const char *sktogglecmd[]  = { "/home/piko/scripts/sck-tog.sh", NULL };
+static const char *wpcmd[]  = { "./scripts/wp-change.sh", NULL };
+static const char *sktogglecmd[]  = { "./scripts/sck-tog.sh", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x24", NULL };
 
-static const char *setcolemakcmd[]  = { "/home/piko/scripts/setxmodmap-colemak.sh", NULL };
-static const char *setqwertycmd[]  = { "/home/piko/scripts/setxmodmap-qwerty.sh", NULL };
+static const char *setcolemakcmd[]  = { "./scripts/setxmodmap-colemak.sh", NULL };
+static const char *setqwertycmd[]  = { "./scripts/setxmodmap-qwerty.sh", NULL };
 
-static const char *suspendcmd[]  = { "/home/piko/scripts/suspend.sh", NULL };
+static const char *suspendcmd[]  = { "./scripts/suspend.sh", NULL };
 
 static const char *neteasemusiccmd[] = {"netease-cloud-music",NULL };
 
@@ -104,7 +108,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_d,                    spawn,          {.v = trayercmd } },
 //	{ MODKEY|ShiftMask,    XK_w,                    spawn,          {.v = setqwertycmd } },
 //	{ MODKEY|ShiftMask,    XK_m,                    spawn,          {.v = setcolemakcmd } },
-  { MODKEY,              XK_a,                    spawn,          {.v = neteasemusiccmd}},
+    /* { MODKEY,              XK_a,                    spawn,          {.v = neteasemusiccmd}}, */
+    { MODKEY,              XK_a,                    spawn,          {.v = toggleAttachBelow}},
 	{ MODKEY|ShiftMask,    XK_p,                    spawn,          {.v = suspendcmd } },
 	{ MODKEY|ControlMask,  XK_s,                    spawn,          {.v = sktogglecmd } },
 	{ 0,                   XF86XK_AudioLowerVolume, spawn,          {.v = downvol } },
@@ -129,7 +134,7 @@ static Key keys[] = {
 	{ MODKEY,              XK_q,                    killclient,     {0} },
 	//{ MODKEY,              XK_t,                    setlayout,      {.v = &layouts[0]} },
 	//{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,    XK_f,                    fullscreen,     {0} },
+	{ MODKEY|ShiftMask,    XK_m,                    fullscreen,     {0} },
 	{ MODKEY,              XK_space,                setlayout,      {0} },
 	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
 	{ MODKEY,              XK_apostrophe,           togglescratch,  {.v = scratchpadcmd } },
