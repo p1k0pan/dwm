@@ -1,5 +1,4 @@
 #include <X11/XF86keysym.h>
-
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -21,13 +20,22 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#ffffff";
 static const char col_cyan[]        = "#37474F";
 static const char col_border[]        = "#42A5F5";
+static char normbgcolor[] = "#2E3440";
+static char normbordercolor[] = "#3B4252";
+static char normfgcolor[] = "#ECEFF4";
+static char selfgcolor[] = "#D8DEE9";
+static char selbordercolor[] = "#5E81AC";
+static char selbgcolor[] = "#5E81AC";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_border  },
-	[SchemeHid]  = { col_cyan,  col_gray1, col_border  },
+	/* [SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, */
+	/* [SchemeSel]  = { col_gray4, col_cyan,  col_border  }, */
+	/* [SchemeHid]  = { col_cyan,  col_gray1, col_border  }, */
+    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
+    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
+    [SchemeHid] = {selbgcolor, normbgcolor, selbordercolor},
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -81,23 +89,30 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *roficmd[] = { "rofi -show drun -theme config.rasi", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
-static const char *trayercmd[]  = { "./scripts/tr-toggle.sh", NULL };
+static const char *trayercmd[]  = { "/home/piko/scripts/tr-toggle.sh", NULL };
+static const char *printcurrentscreen[]  = { "scrot", "-u", "/home/piko/Pictures/screenshots/%Y-%m-%d-%s_$wx$h.jpg", NULL };
+static const char *printrectanglescreen[]  = { "scrot", "-s", "/home/piko/Pictures/screenshots/%Y-%m-%d-%s_$wx$h.jpg", NULL };
+static const char *flameshot[]  = { "flameshot","gui", NULL };
+static const char *upvol[]   = { "/home/piko/scripts/vol-up.sh",  NULL };
+static const char *downvol[] = { "/home/piko/scripts/vol-down.sh",  NULL };
+static const char *mutevol[] = { "/home/piko/scripts/vol-toggle.sh",  NULL };
 
-static const char *upvol[]   = { "./scripts/vol-up.sh",  NULL };
-static const char *downvol[] = { "./scripts/vol-down.sh",  NULL };
-static const char *mutevol[] = { "./scripts/vol-toggle.sh",  NULL };
-
-static const char *wpcmd[]  = { "./scripts/wp-change.sh", NULL };
-static const char *sktogglecmd[]  = { "./scripts/sck-tog.sh", NULL };
+static const char *wpcmd[]  = { "/home/piko/scripts/wp-change.sh", NULL };
+static const char *sktogglecmd[]  = { "/home/piko/scripts/sck-tog.sh", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x24", NULL };
 
-static const char *setcolemakcmd[]  = { "./scripts/setxmodmap-colemak.sh", NULL };
-static const char *setqwertycmd[]  = { "./scripts/setxmodmap-qwerty.sh", NULL };
+static const char *setcolemakcmd[]  = { "/home/piko/scripts/setxmodmap-colemak.sh", NULL };
+static const char *setqwertycmd[]  = { "/home/piko/scripts/setxmodmap-qwerty.sh", NULL };
 
-static const char *suspendcmd[]  = { "./scripts/suspend.sh", NULL };
+static const char *suspendcmd[]  = { "/home/piko/scripts/suspend.sh", NULL };
 
 static const char *neteasemusiccmd[] = {"netease-cloud-music",NULL };
+
+static const char *chKeyboardLayout[] = {"/home/piko/scripts/chKeyboardLayout.sh",NULL };
+
+static const char *lightdown[] = {"/home/piko/scripts/lightdown.sh",NULL };
+static const char *lightup[] = {"/home/piko/scripts/lightup.sh",NULL };
 
 static Key keys[] = {
 	/* modifier            key                      function        argument */
@@ -109,16 +124,27 @@ static Key keys[] = {
 //	{ MODKEY|ShiftMask,    XK_w,                    spawn,          {.v = setqwertycmd } },
 //	{ MODKEY|ShiftMask,    XK_m,                    spawn,          {.v = setcolemakcmd } },
     /* { MODKEY,              XK_a,                    spawn,          {.v = neteasemusiccmd}}, */
-    { MODKEY,              XK_a,                    spawn,          {.v = toggleAttachBelow}},
+    { MODKEY,              XK_a,                    spawn,          {.v = toggleAttachBelow}}, //not work on toggle
 	{ MODKEY|ShiftMask,    XK_p,                    spawn,          {.v = suspendcmd } },
 	{ MODKEY|ControlMask,  XK_s,                    spawn,          {.v = sktogglecmd } },
+    //volume control
 	{ 0,                   XF86XK_AudioLowerVolume, spawn,          {.v = downvol } },
 	{ 0,                   XF86XK_AudioMute,        spawn,          {.v = mutevol } },
 	{ 0,                   XF86XK_AudioRaiseVolume, spawn,          {.v = upvol   } },
 	{ MODKEY,              XK_bracketleft,          spawn,          {.v = downvol } },
 	{ MODKEY,              XK_backslash,            spawn,          {.v = mutevol } },
 	{ MODKEY,              XK_bracketright,         spawn,          {.v = upvol   } },
+    //light control
+	{ MODKEY|ShiftMask,    XK_bracketright,         spawn,          {.v = lightup   } },
+	{ MODKEY|ShiftMask,    XK_bracketleft,          spawn,          {.v = lightdown } },
+	{ 0,              XF86XK_MonBrightnessUp,         spawn,          {.v = lightup   } },
+	{ 0,              XF86XK_MonBrightnessDown,          spawn,          {.v = lightdown } },
+
 	{ MODKEY,              XK_b,                    spawn,          {.v = wpcmd } },
+	{ MODKEY,              XK_m,                    spawn,          {.v = chKeyboardLayout } },
+	{ 0,              XK_Print,                    spawn,          {.v = printcurrentscreen} },
+	{ MODKEY,              XK_Print,                    spawn,          {.v = printrectanglescreen} },
+	{ MODKEY|ShiftMask,              XK_Print,                    spawn,          {.v = flameshot} },
 	{ MODKEY|ShiftMask,    XK_j,                    rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,    XK_k,                    rotatestack,    {.i = -1 } },
 	{ MODKEY,              XK_j,                    focusstack,     {.i = +1 } },
@@ -134,7 +160,7 @@ static Key keys[] = {
 	{ MODKEY,              XK_q,                    killclient,     {0} },
 	//{ MODKEY,              XK_t,                    setlayout,      {.v = &layouts[0]} },
 	//{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,    XK_m,                    fullscreen,     {0} },
+	{ MODKEY,              XK_f,                    fullscreen,     {0} },
 	{ MODKEY,              XK_space,                setlayout,      {0} },
 	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
 	{ MODKEY,              XK_apostrophe,           togglescratch,  {.v = scratchpadcmd } },
