@@ -12,7 +12,11 @@ static const int smartgaps          = 1;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "SauceCodePro Nerd Font Mono:size=13" };
+/* static const char *fonts[]          = { "SauceCodePro Nerd Font Mono:size=13" }; */
+static const char *fonts[] = {
+    "BlexMono Nerd Font:size=13:antialias=true:autohint=true",
+    "Sarasa UI SC:size=12:antialias=true:autohint=true",
+};
 static const char dmenufont[]       = "Sauce Code Pro Nerd Font Mono:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -98,7 +102,7 @@ static const char *downvol[] = { "/home/piko/scripts/vol-down.sh",  NULL };
 static const char *mutevol[] = { "/home/piko/scripts/vol-toggle.sh",  NULL };
 
 static const char *wpcmd[]  = { "/home/piko/scripts/wp-change.sh", NULL };
-static const char *sktogglecmd[]  = { "/home/piko/scripts/sck-tog.sh", NULL };
+static const char *sktogglecmd[]  = { "/home/piko/scripts/sck-tog.sh", NULL };//set screenkey
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x24", NULL };
 
@@ -126,7 +130,7 @@ static Key keys[] = {
     /* { MODKEY,              XK_a,                    spawn,          {.v = neteasemusiccmd}}, */
     { MODKEY,              XK_a,                    spawn,          {.v = toggleAttachBelow}}, //not work on toggle
 	{ MODKEY|ShiftMask,    XK_p,                    spawn,          {.v = suspendcmd } },
-	{ MODKEY|ControlMask,  XK_s,                    spawn,          {.v = sktogglecmd } },
+	/* { MODKEY|ControlMask,  XK_s,                    spawn,          {.v = sktogglecmd } }, */ //set screenkey
     //volume control
 	{ 0,                   XF86XK_AudioLowerVolume, spawn,          {.v = downvol } },
 	{ 0,                   XF86XK_AudioMute,        spawn,          {.v = mutevol } },
@@ -162,7 +166,7 @@ static Key keys[] = {
 	//{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,              XK_f,                    fullscreen,     {0} },
 	{ MODKEY,              XK_space,                setlayout,      {0} },
-	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
+	/* { MODKEY|ShiftMask,    XK_space,                togglefloating, {0} }, */
 	{ MODKEY,              XK_apostrophe,           togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,              XK_0,                    view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,    XK_0,                    tag,            {.ui = ~0 } },
